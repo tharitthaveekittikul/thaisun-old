@@ -3,18 +3,26 @@ import Navbar from "./components/Navbar/Navbar";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Page404 from "./components/Page404";
+import Signup from "./components/Signup";
+import PrivateRoute from "./components/PrivateRoute";
+import Dashboard from "./components/Dashboard";
 import { Switch, Route } from "react-router-dom";
+import AuthContextProvider from "./Contexts/AuthContext";
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route path="*" component={Page404} />
-      </Switch>
-    </div>
+    <AuthContextProvider>
+      <div>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <Route path="*" component={Page404} />
+        </Switch>
+      </div>
+    </AuthContextProvider>
   );
 };
 
