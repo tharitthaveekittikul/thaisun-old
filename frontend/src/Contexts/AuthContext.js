@@ -6,9 +6,12 @@ import {
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 
-const AuthContext = createContext()
+const AuthContext = createContext({
+  currentUser: null,
+});
 
 export const useAuth = () => useContext(AuthContext);
 
@@ -20,17 +23,21 @@ export default function AuthContextProvider({ children }) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
+  function verify() {
+    return sendEmailVerification(auth.currentUser);
+  }
+
   function login(email, password) {
-    console.log('loginka')
+    console.log("loginka");
     return signInWithEmailAndPassword(auth, email, password);
   }
 
   function resetPassword(email) {
-    return sendPasswordResetEmail(auth, email)
+    return sendPasswordResetEmail(auth, email);
   }
 
   function logout() {
-    console.log('logoutkrub')
+    console.log("logoutkrub");
     return signOut(auth);
   }
 
@@ -41,7 +48,7 @@ export default function AuthContextProvider({ children }) {
     });
 
     return unsubscribe;
-  },[]);
+  }, []);
 
   const value = {
     currentUser,
@@ -49,7 +56,12 @@ export default function AuthContextProvider({ children }) {
     signup,
     logout,
     resetPassword,
+    verify,
   };
 
-  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }

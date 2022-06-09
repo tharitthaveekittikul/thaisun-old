@@ -9,7 +9,7 @@ function Login() {
   const passwordRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login, currentUser } = useAuth();
+  const { login, logout, currentUser } = useAuth();
   const history = useHistory();
 
   async function handleSubmit(e) {
@@ -17,8 +17,18 @@ function Login() {
     try {
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/dashboard");
+      await login(emailRef.current.value, passwordRef.current.value).then();
+      // if (currentUser && currentUser.emailVerified) {
+      //   console.log(currentUser);
+      //   console.log("email no verified");
+      //   setError("Email not verified");
+      //   await logout();
+      // } else {
+      //   console.log(currentUser);
+      //   console.log("email verified");
+      //   history.push("/");
+      // }
+      history.push("/verify");
     } catch {
       setError("Failed to sign in");
     }

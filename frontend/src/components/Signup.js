@@ -10,7 +10,7 @@ function Signup() {
   const passwordConfirmRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signup, currentUser } = useAuth();
+  const { signup, verify, logout, currentUser } = useAuth();
   const history = useHistory();
 
   async function handleSubmit(e) {
@@ -24,7 +24,12 @@ function Signup() {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
-      history.push("/");
+      console.log("signup");
+      await verify();
+      console.log("verify");
+      await logout();
+      console.log("logout");
+      history.push("/login");
     } catch {
       setError("Failed to create an account");
     }

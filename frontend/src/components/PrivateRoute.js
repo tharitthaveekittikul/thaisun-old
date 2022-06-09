@@ -4,7 +4,7 @@ import { useAuth } from "../Contexts/AuthContext";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { currentUser } = useAuth();
-  console.log(currentUser, 'PRIVATEROUTE=====');
+  console.log(currentUser);
   return (
     // Show the component only when the user is logged in
     // Otherwise, redirect the user to /signin page
