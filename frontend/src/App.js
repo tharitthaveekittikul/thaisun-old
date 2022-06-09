@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword"
 import Home from "./components/Home";
 import Page404 from "./components/Page404";
 import Signup from "./components/Signup";
@@ -17,6 +18,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/signup" component={Signup} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <Route path="*" component={Page404} />
